@@ -1,0 +1,80 @@
+1. What is the 48-bit Ethernet address of your computer? dc:a9:04:7e:ed:3f
+2. What is the 48-bit destination address in the Ethernet frame? 00:0c:41:45:90:a8 is not the Ethernet address of gaia.cs.umass.edu.
+3. Give the hexadecimal value for the two-byte Frame type field? 0x0800.
+4. How many bytes from the very start of the Ethernet frame does the ASCII “G” in “GET” appear in the Ethernet frame? The ASCII "G" appears 52 bytes from the start of the Ethernet frame.
+5. The source address 00:0c:41:45:90:a8 is neither the Ethernet address of gaia.cs.umass.edu nor the address of my computer
+6. dc:a9:04:7e:ed:3f is destination address of my computer.
+7. The hex value for the Frame type field is 0x0800.
+8. The ASCII "O" appears 52 bytes from the start of the Ethernet frame.
+
+P8.
+a/
+D + r = 10010101010000
+D = 1001010101
+G = 10011
+R = remainder (D + r) /G = 0000
+	
+b/
+D + r = 01011010100000
+D = 0101101010
+G = 10011
+R = remainder (D + r) /G = 1111
+
+c/
+D + r = 10101000000000
+D = 1010100000
+G = 10011
+R = remainder (D + r) /G = 1001
+
+P13
+The length of a polling round is N(Q/R + dpoll)
+The number of bits transmitted is NQ, the max throughput is NQ/N(Q/R + dpoll)
+
+P14
+a/ ip addresses
+Subnet 1:
+A: 192.168.1.2
+B: 192.168.1.3
+Router 1: 192.168.1.1
+
+Subnet 2:
+C: 192.168.2.3
+D: 192.168.2.4
+Router 1: 192.168.2.1
+Router 2: 192.168.2.2
+
+Subnet 3:
+E: 192.168.3.2
+F: 192.168.3.3
+Router 2: 192.168.3.1
+
+b/ MAC addresses
+Subnet 1:
+A: 00:00:00:00:00:00
+B: 11:11:11:11:11:11
+Router 1: 22:22:22:22:22:22
+
+Subnet 2:
+C: 33:33:33:33:33:33
+D: 44:44:44:44:44:44
+Router 1: 55:55:55:55:55:55
+Router 2: 66:66:66:66:66:66
+
+Subnet 3:
+E: 77:77:77:77:77:77
+F: 88:88:88:88:88:88
+Router 2: 99:99:99:99:99:99
+
+c/
+E will be routed to Router with address 192.168.3.1
+E use ERP to determine the LAN address for 192.168.3.1, namely 99:99:99:99:99:99
+Adapter in E creates and Ethernet packet with Ethernet destination address 99:99:99:99:99:99
+The first router receives the packet and extracts the datagram. The forwarding table in this router indicates that the datagram is to be routed to 192.168.2.1
+The first router then uses ARP to obtain the associated Ethernet address, namely 55:55:55:55:55:55
+The process continues until the packet has reached Host B
+
+d/
+ARP in E must now determine the LAN address of 192.168.3.1. Host E sends out
+an ARP query packet within a broadcast Ethernet frame. The first router receives the
+query packet and sends to Host E an ARP response packet. This ARP response packet is
+carried by an Ethernet frame with Ethernet destination address 77:77:77:77:77:77
